@@ -39,23 +39,32 @@ end
 
 
 class IntSet
+   
   def initialize(num_buckets = 20)
     @store = Array.new(num_buckets) { Array.new }
   end
 
   def insert(num)
+    self[num] << num if !self.include?(num)
   end
 
   def remove(num)
+   self[num].delete(num) if self.include?(num)
   end
 
   def include?(num)
+    self[num].each do |number|
+      return true if number == num
+    end
+    return false
   end
 
   private
 
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
+    mod = num % num_buckets
+    return @store[mod]
   end
 
   def num_buckets
@@ -72,18 +81,21 @@ class ResizingIntSet
   end
 
   def insert(num)
+      
   end
 
   def remove(num)
   end
 
   def include?(num)
+    
   end
 
   private
 
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
+    
   end
 
   def num_buckets
